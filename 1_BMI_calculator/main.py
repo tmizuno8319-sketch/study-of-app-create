@@ -18,7 +18,7 @@ def judge_shape(bmi):
         body_shape = '肥満'
     return body_shape
 
-# make dataframe
+# check dataframe
 if 'history' not in st.session_state:
     st.session_state['history'] = pd.DataFrame(
         data = [], 
@@ -56,18 +56,15 @@ else:
     }])
     edited_history = pd.concat([new_row, edited_history], ignore_index = True)
     st.session_state['history'] = edited_history
-    csv = edited_history.to_csv
+    
 
+csv = edited_history.to_csv(index=False)
+# display history and download csv
 st.subheader('履歴')
-
-try:
-    print(edited_history)
-    st.dataframe(edited_history)
-    st.download_button(
-        label = "CSVデータをダウンロード",
-        data = csv, 
-        file_name = 'bmi_history.csv', 
-        mime = 'text/csv'
-        )
-except:
-    st.write('')
+st.dataframe(edited_history)
+st.download_button(
+label = "CSVデータをダウンロード",
+data = csv, 
+file_name = 'bmi_history.csv', 
+mime = 'text/csv'
+)
