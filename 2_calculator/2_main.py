@@ -54,7 +54,7 @@ with col4:
     if st.button('=', width="stretch"):
         try:
             calculated = eval(calc_str)
-        except ZeroDivisionError:
+        except Exception:
             calculated = '無効な計算です'
         calc_hist.append(f'{calc_str} = {calculated}')
 
